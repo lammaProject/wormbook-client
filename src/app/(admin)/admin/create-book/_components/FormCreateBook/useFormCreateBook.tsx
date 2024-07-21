@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { createBook } from "@/src/app/lib/api/web/admin";
+import api from "@/src/app/lib/api/Api";
 
 const useFormCreateBook = () => {
   const [book, setBook] = useState(false);
@@ -9,7 +9,7 @@ const useFormCreateBook = () => {
   const sendForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const { data } = await createBook(formData);
+    const { data } = await api("client").admin().createBook(formData);
     if (data) {
       setBook(true);
     }

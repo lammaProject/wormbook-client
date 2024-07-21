@@ -4,17 +4,17 @@ import axios, { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const http = axios.create({
+const httpServer = axios.create({
   baseURL: "http://127.0.0.1:8000",
   withCredentials: true,
 });
 
-http.interceptors.request.use((config) => {
+httpServer.interceptors.request.use((config) => {
   const token = cookies().get("access_token");
   config.headers["Cookie"] = `access_token=${token ? token.value : ""}`;
   return config;
 });
-http.interceptors.response.use(
+httpServer.interceptors.response.use(
   (res) => {
     return res;
   },
@@ -28,4 +28,4 @@ http.interceptors.response.use(
   },
 );
 
-export default http;
+export default httpServer;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { VerifyCode } from "@/src/app/types/auth.interface";
-import { sendVerifactionCode, verifyToken } from "@/src/app/lib/api/web/auth";
 import { useRouter } from "next/navigation";
+import api from "@/src/app/lib/api/Api";
 
 const useLogin = () => {
   const router = useRouter();
@@ -11,13 +11,13 @@ const useLogin = () => {
   const sendCodeToEmail = async () => {
     if (body) {
       setSendCode(true);
-      void (await sendVerifactionCode(body));
+      void api("client").auth().sendVerificationCode(body);
     }
   };
 
   const sendVerifyCode = async () => {
     if (body) {
-      void verifyToken(body);
+      void api("client").auth().verifyToken(body);
       router.push("/dashboard");
     }
   };

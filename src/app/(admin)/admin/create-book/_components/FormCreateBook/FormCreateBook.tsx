@@ -1,4 +1,5 @@
 "use client";
+
 import useFormCreateBook from "@/src/app/(admin)/admin/create-book/_components/FormCreateBook/useFormCreateBook";
 
 const FormCreateBook = () => {
@@ -15,7 +16,6 @@ const FormCreateBook = () => {
         <div className="control">
           <input
             name={"title"}
-            value={"title"}
             className="input"
             type="text"
             placeholder="Text input"
@@ -32,7 +32,6 @@ const FormCreateBook = () => {
             className="input is-success"
             type="text"
             placeholder="Text input"
-            value="author "
           />
           <span className="icon is-small is-left"></span>
         </div>
@@ -44,7 +43,6 @@ const FormCreateBook = () => {
         <div className="control">
           <input
             name={"side"}
-            value={"side"}
             className="input"
             type="text"
             placeholder="Text input"

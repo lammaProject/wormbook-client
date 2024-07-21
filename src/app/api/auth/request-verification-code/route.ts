@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sendVerifactionCode } from "@/src/app/lib/api/backend/auth";
 import isValidEmail from "@/src/app/lib/utils/isValidEmail";
+import api from "@/src/app/lib/api/Api";
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,13 +18,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const response = await sendVerifactionCode(body);
+    const response = await api("server").auth().sendVerificationCode(body);
 
     // Проверка успешности верификации
-    if (!response.data) {
+    if (!response || !response.data) {
       return NextResponse.json(
-        { error: "Token verification failed" },
-        { status: 401 },
+        { error: "Проблема на стороне сервера" },
+        { status: 500 },
       );
     }
 

@@ -1,6 +1,6 @@
-import { verifyToken } from "@/src/app/lib/api/backend/auth";
 import isValidEmail from "@/src/app/lib/utils/isValidEmail";
 import { cookies } from "next/headers";
+import api from "@/src/app/lib/api/Api";
 
 export async function POST(request: Request) {
   try {
@@ -21,7 +21,19 @@ export async function POST(request: Request) {
         headers: { "Content-Type": "application/json" },
       });
     }
-    const response = await verifyToken(body);
+
+    const response = await api("server").auth().verifyToken(body);
+
+    if (!response || !response.data) {
+      return new Response(
+        JSON.stringify({ error: "Ошибка на стороне сервера" }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+    }
+
     cookies().set("access_token", response.data.access_token, {
       httpOnly: true,
     });

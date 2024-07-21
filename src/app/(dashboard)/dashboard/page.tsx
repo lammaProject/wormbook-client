@@ -1,10 +1,7 @@
-import { cookies } from "next/headers";
-import { getProfile } from "@/src/app/lib/api/backend/profile";
+import api from "@/src/app/lib/api/Api";
 
 export default async function Page() {
-  const data = await getProfile();
-  console.log(data, "data");
-  console.log(cookies().get("access_token"));
+  void (await api("server").profile().getProfile());
 
   return (
     <div className={"grid"}>
