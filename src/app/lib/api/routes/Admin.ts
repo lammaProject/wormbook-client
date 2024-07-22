@@ -1,4 +1,4 @@
-import { BaseRoute } from "@/src/app/lib/api/routes/Base";
+import { BaseRoute } from "@/src/app/lib/api/http/Base";
 
 export class Admin extends BaseRoute {
   private admin = "/admin";

@@ -23,7 +23,7 @@ httpServer.interceptors.response.use(
     switch (code) {
       case 401:
       case 403:
-        return redirect("/login");
+        return redirect("/auth/login");
     }
   },
 );

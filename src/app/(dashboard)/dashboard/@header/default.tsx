@@ -1,20 +1,42 @@
 import Link from "next/link";
+import { api } from "@/src/app/lib/api/Api";
 
 export default async function Default() {
+  const { data } = await api("server").profile.getProfile();
+
   return (
     <nav className="navbar has-background" role="navigation">
       <div className="navbar-start">
-        <Link className="navbar-item" href={"/admin/create-book"}>
-          Добавить книгу
-        </Link>
+        <div className={"is-flex block is-flex-direction-column is-center"}>
+          <p>
+            <strong>{data.username}</strong>
+          </p>
+          <div>
+            прочитано: <strong className={"is-text is-primary"}>0</strong>
+          </div>
+          <div></div>
+        </div>
+        {data && data.role === "admin" && (
+          <Link className="button" href={"/admin/create-book"}>
+            Добавить книгу
+          </Link>
+        )}
       </div>
       <div className="navbar-end ">
         <div className="navbar-item">
-          <div className="buttons">
-            <Link className="button is-primary" href={"/login"}>
-              <strong>Войти</strong>
-            </Link>
-          </div>
+          {data && data.username ? (
+            <div className="buttons">
+              <Link className="button is-warning" href={"/auth/logout"}>
+                <strong>Выйти</strong>
+              </Link>
+            </div>
+          ) : (
+            <div className="buttons">
+              <Link className="button is-primary" href={"/auth/login"}>
+                <strong>Войти</strong>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

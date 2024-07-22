@@ -2,7 +2,7 @@ import { AxiosInstance } from "axios";
 import httpServer from "@/src/app/lib/api/http/httpServer";
 import httpClient from "@/src/app/lib/api/http/httpClient";
 
-export class BaseRoute {
+export abstract class BaseRoute {
   protected http: AxiosInstance;
 
   private static clientHttp: AxiosInstance;
@@ -10,6 +10,7 @@ export class BaseRoute {
 
   constructor(type: "client" | "server") {
     if (type === "client") {
+      this.http = httpClient;
       if (!BaseRoute.clientHttp) {
         BaseRoute.clientHttp = httpClient;
       }

@@ -1,4 +1,5 @@
-import { BaseRoute } from "@/src/app/lib/api/routes/Base";
+import { BaseRoute } from "@/src/app/lib/api/http/Base";
+import { ProfileInterface } from "@/src/app/types/profile.interface";
 
 export class Profile extends BaseRoute {
   private profile = "/profile";
@@ -9,6 +10,6 @@ export class Profile extends BaseRoute {
    * @path /profile/
    */
   async getProfile() {
-    return await this.http(this.profile + "/");
+    return await this.http.get<ProfileInterface>(this.profile + "/");
   }
 }

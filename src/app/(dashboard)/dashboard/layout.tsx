@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "dashboard",
@@ -6,16 +7,16 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({
-  children,
   header,
+  body,
 }: Readonly<{
-  children: React.ReactNode;
-  header: React.ReactNode;
+  header: ReactNode;
+  body: ReactNode;
 }>) {
   return (
     <section>
       {header}
-      {children}
+      {body}
     </section>
   );
 }

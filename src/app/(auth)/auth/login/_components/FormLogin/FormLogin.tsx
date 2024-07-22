@@ -1,21 +1,15 @@
 "use client";
 
-import useLogin from "@/src/app/(login)/login/_components/FormLogin/useLogin";
+import useLogin from "@/src/app/(auth)/auth/login/_components/FormLogin/useLogin";
 import { ChangeEvent } from "react";
 
 const FormLogin = () => {
-  const { addBody, sendCode, sendCodeToEmail, sendVerifyCode } = useLogin();
+  const { addBody, isSendCode, sendCodeToEmail, sendVerifyCode } = useLogin();
 
   return (
     <div>
-      {sendCode ? (
-        <form
-          key={"code"}
-          onSubmit={(event) => {
-            event.preventDefault();
-            void sendVerifyCode();
-          }}
-        >
+      {isSendCode ? (
+        <form key={"code"} onSubmit={sendVerifyCode}>
           <h1 className={"is-size-3"}>Сюда напишите ваш код из EMAIL</h1>
 
           <div className={"field column"}>
@@ -36,13 +30,7 @@ const FormLogin = () => {
           </div>
         </form>
       ) : (
-        <form
-          key={"email"}
-          onSubmit={(event) => {
-            event.preventDefault();
-            void sendCodeToEmail();
-          }}
-        >
+        <form key={"email"} onSubmit={sendCodeToEmail}>
           <h1 className={"is-size-3"}>Напишите ваш EMAIL</h1>
           <div className={"field column"}>
             <input

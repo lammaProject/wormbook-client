@@ -1,5 +1,5 @@
 // api/auth.ts
-import { BaseRoute } from "./Base";
+import { BaseRoute } from "../http/Base";
 import { SendVerifyCode, VerifyCode } from "@/src/app/types/auth.interface";
 
 export class Auth extends BaseRoute {
