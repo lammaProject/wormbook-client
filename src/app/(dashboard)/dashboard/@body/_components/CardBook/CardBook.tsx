@@ -1,8 +1,13 @@
 "use client";
 
 import { Book } from "@/src/app/types/books.interface";
+import Link from "next/link";
 
-const CardBook = ({ book: { title, author, cover_image } }: { book: Book }) => (
+const CardBook = ({
+  book: { id, title, author, cover_image },
+}: {
+  book: Book;
+}) => (
   <div className={"cell"}>
     <h1>{title}</h1>
     <p>{author}</p>
@@ -12,6 +17,7 @@ const CardBook = ({ book: { title, author, cover_image } }: { book: Book }) => (
       width={300}
       height={300}
     />
+    <Link href={`/books/${id}`}>Подробнее</Link>
   </div>
 );
 

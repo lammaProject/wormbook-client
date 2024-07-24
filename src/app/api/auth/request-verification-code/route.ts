@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import tryRequest from "@/src/app/lib/utils/tryRequest";
 import isValidEmail from "@/src/app/lib/utils/isValidEmail";
 import { SendVerifyCode } from "@/src/app/types/auth.interface";
-import bindApi from "@/src/app/lib/utils/bindApi";
+import { bindApi } from "@/src/app/lib/api/Api";
 
 export async function POST(request: NextRequest) {
   return await tryRequest<"POST", SendVerifyCode>({

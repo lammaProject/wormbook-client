@@ -8,7 +8,9 @@ export class Books extends BaseRoute {
     return this.http.get<{ books: Book[] }>(this.books + "/");
   }
 
-  async getBook() {
-    return await this.http.get(this.books + "/get-book");
+  async getBook(body: string) {
+    return await this.http.get<{ book: Book }>(
+      this.books + "/book/?book_id=" + body,
+    );
   }
 }

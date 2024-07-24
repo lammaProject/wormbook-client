@@ -1,5 +1,5 @@
 import tryRequest from "@/src/app/lib/utils/tryRequest";
-import bindApi from "@/src/app/lib/utils/bindApi";
+import { bindApi } from "@/src/app/lib/api/Api";
 
 export async function GET() {
   return await tryRequest({

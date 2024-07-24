@@ -2,7 +2,7 @@ import Link from "next/link";
 import { api } from "@/src/app/lib/api/Api";
 
 export default async function Default() {
-  const { data } = await api("server").profile.getProfile();
+  const { data } = await api("server", "profile", "getProfile");
 
   return (
     <nav className="navbar has-background" role="navigation">

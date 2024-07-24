@@ -16,14 +16,14 @@ const useLogin = () => {
 
     if (body) {
       setIsSendCode(true);
-      void api("client").auth.sendVerificationCode(body);
+      void api("client", "auth", "sendVerificationCode", body);
     }
   };
 
   const sendVerifyCode = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (body) {
-      void api("client").auth.verifyToken(body);
+      void api("client", "auth", "verifyToken", body);
       router.push("/dashboard");
     }
   };

@@ -3,38 +3,35 @@
 import { NextResponse } from "next/server";
 import { AxiosResponse } from "axios";
 
-type ApiFunction<M extends "GET" | "POST", T> = M extends "GET"
-  ? () => Promise<AxiosResponse>
-  : (body: T) => Promise<AxiosResponse>;
+type TryRequestParams<T, G> = {
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  api: T extends undefined
+    ? () => Promise<AxiosResponse<G>>
+    : (body: T) => Promise<AxiosResponse<G>>;
+  body?: T | Promise<T>;
+  valid?: (body: T) => void | NextResponse;
+  util?: (response?: AxiosResponse<G>) => void;
+};
 
-type TryRequestParams<M extends "GET" | "POST", T> = {
-  method: M;
-} & (M extends "GET"
-  ? { body?: never; valid?: never; api: ApiFunction<M, T>; util?: () => void }
-  : {
-      body: Promise<T>;
-      api: ApiFunction<M, T>;
-      valid?: (body: T) => void | NextResponse;
-      util?: (body: AxiosResponse) => void;
-    });
-
-const tryRequest = async <M extends "GET" | "POST", T>({
-  method,
+const tryRequest = async <T, G>({
   body,
   valid,
   api,
   util,
-}: TryRequestParams<M, T>) => {
+}: TryRequestParams<T, G>) => {
   try {
     const getApi = async () => {
-      if (method === "GET") return await (api as ApiFunction<"GET", T>)();
-      const jsonBody = (await body) as T;
+      if (!body) {
+        return (api as () => Promise<AxiosResponse<G>>)();
+      }
+
+      const jsonBody = body instanceof Promise ? await body : body;
 
       if (valid) {
         void valid(jsonBody);
       }
 
-      return await (api as ApiFunction<"POST", T>)(jsonBody);
+      return await api(jsonBody);
     };
 
     const response = await getApi();
