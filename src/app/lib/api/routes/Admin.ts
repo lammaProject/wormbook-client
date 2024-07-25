@@ -1,4 +1,5 @@
 import { BaseRoute } from "@/src/app/lib/api/http/Base";
+import { Book } from "@/src/app/types/books.interface";
 
 export class Admin extends BaseRoute {
   private admin = "/admin";
@@ -10,6 +11,9 @@ export class Admin extends BaseRoute {
    * @param formData
    */
   async createBook(formData: FormData) {
-    return await this.http.postForm(this.admin + "/create-book", formData);
+    return await this.http.postForm<{ book: Book }>(
+      this.admin + "/create-book",
+      formData,
+    );
   }
 }

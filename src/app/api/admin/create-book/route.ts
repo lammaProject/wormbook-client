@@ -3,15 +3,15 @@ import tryRequest from "@/src/app/lib/utils/tryRequest";
 import { bindApi } from "@/src/app/lib/api/Api";
 
 export async function POST(request: NextRequest) {
-  return await tryRequest<"POST", FormData>({
+  return await tryRequest({
     method: "POST",
     body: request.formData(),
     valid: (formData) => {
+      console.log(formData);
       if (
         !formData.has("title") ||
         !formData.has("author") ||
-        !formData.has("side") ||
-        !formData.has("file")
+        !formData.has("category")
       ) {
         return NextResponse.json(
           { error: "Обязательные поля" },
@@ -20,5 +20,8 @@ export async function POST(request: NextRequest) {
       }
     },
     api: bindApi("admin", "createBook"),
+    util: (response) => {
+      console.log(response);
+    },
   });
 }

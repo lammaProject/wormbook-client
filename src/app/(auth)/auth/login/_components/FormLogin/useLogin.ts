@@ -23,8 +23,8 @@ const useLogin = () => {
   const sendVerifyCode = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (body) {
-      void api("client", "auth", "verifyToken", body);
-      router.push("/dashboard");
+      const response = await api("client", "auth", "verifyToken", body);
+      if (response) router.push("/dashboard");
     }
   };
 

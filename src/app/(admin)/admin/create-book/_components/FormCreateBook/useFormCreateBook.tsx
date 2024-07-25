@@ -1,16 +1,15 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { api } from "@/src/app/lib/api/Api";
 
 const useFormCreateBook = () => {
   const [book, setBook] = useState(false);
-  const [image, setImage] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const sendForm = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    formData.set("rating", "0");
     const { data } = await api("client", "admin", "createBook", formData);
 
     if (data) {
@@ -18,21 +17,7 @@ const useFormCreateBook = () => {
     }
   };
 
-  const addImagePreview = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const selectedFile = event.target.files[0];
-      setImage(selectedFile);
-
-      if (selectedFile) {
-        const objectUrl = URL.createObjectURL(selectedFile);
-        setPreviewUrl(objectUrl);
-      } else {
-        setPreviewUrl(null);
-      }
-    }
-  };
-
-  return { sendForm, addImagePreview, image, previewUrl, book };
+  return { sendForm, book };
 };
 
 export default useFormCreateBook;
