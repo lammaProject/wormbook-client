@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .html-bg {
+    @apply dark:bg-dark bg-white;
+  }
+
+  .worm-section {
+    @apply px-4 py-6 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-10 lg:py-12 xl:px-12 xl:py-14;
+  }
+
+  .worm-button {
+    @apply dark:text-white dark:bg-main rounded-2xl p-2 hover:opacity-80 ease-in duration-300;
+  }
+}

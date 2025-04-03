@@ -15,6 +15,7 @@ export default async function Layout({
   notAdmin: ReactNode;
 }>) {
   const { data } = await api("server", "profile", "getProfile");
+  console.log(data);
   if (data && data.role !== "admin") return notAdmin;
   return <section>{children}</section>;
 }

@@ -2,20 +2,20 @@
 
 import useLogin from "@/src/app/(auth)/auth/login/_components/FormLogin/useLogin";
 import { ChangeEvent } from "react";
+import { Button } from "@headlessui/react";
 
 const FormLogin = () => {
   const { addBody, isSendCode, sendCodeToEmail, sendVerifyCode } = useLogin();
 
   return (
-    <div>
+    <div className={"flex bg-dark"}>
       {isSendCode ? (
         <form key={"code"} onSubmit={sendVerifyCode}>
-          <h1 className={"is-size-3"}>Сюда напишите ваш код из EMAIL</h1>
+          <h1>Сюда напишите ваш код из EMAIL</h1>
 
-          <div className={"field column"}>
+          <div>
             <input
               name={"code"}
-              className="input"
               type="text"
               placeholder="code"
               required
@@ -25,19 +25,19 @@ const FormLogin = () => {
             />
           </div>
 
-          <div className={"field column"}>
-            <button className={"button"}>Войти</button>
+          <div>
+            <Button type={"submit"}>Войти</Button>
           </div>
         </form>
       ) : (
         <form key={"email"} onSubmit={sendCodeToEmail}>
-          <h1 className={"is-size-3"}>Напишите ваш EMAIL</h1>
-          <div className={"field column"}>
+          <h1>Напишите ваш EMAIL</h1>
+          <div>
             <input
               name={"email"}
-              className="input"
               type="email"
               placeholder="email"
+              className={"form-input px-4 py-3 rounded-full"}
               required
               onInput={(e: ChangeEvent<HTMLInputElement>) =>
                 addBody({ target: "email", value: e.target.value })
@@ -45,11 +45,9 @@ const FormLogin = () => {
             />
           </div>
 
-          <div className={"field column"}>
-            <button type="submit" className={"button"}>
-              Отправить
-            </button>
-          </div>
+          <Button className={"worm-button"} type="submit">
+            Отправить
+          </Button>
         </form>
       )}
     </div>

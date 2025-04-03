@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "../styles/globals.scss";
+import "../styles/globals.css";
 
 export const metadata: Metadata = {
   title: "wormbook",
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-theme="dark" lang="en">
+    <html className={"html-bg"} lang="en">
       <body>{children}</body>
     </html>
   );

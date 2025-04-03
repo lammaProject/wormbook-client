@@ -22,7 +22,9 @@ const useLogin = () => {
 
   const sendVerifyCode = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(body);
     if (body) {
+      console.log(body);
       const response = await api("client", "auth", "verifyToken", body);
       if (response) router.push("/dashboard");
     }
@@ -35,6 +37,7 @@ const useLogin = () => {
     target: "email" | "code";
     value: string;
   }) => {
+    console.log(value);
     setBody((prev) => ({
       ...prev,
       [target]: value,

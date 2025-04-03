@@ -55,7 +55,9 @@ const FormCreateBook = () => {
       <ImageForm name={"back_file"} />
       <ImageForm name={"bot_file"} />
 
-      <button className={"button"}>SEND</button>
+      <button type={"submit"} className={"button"}>
+        SEND
+      </button>
     </form>
   );
 };
